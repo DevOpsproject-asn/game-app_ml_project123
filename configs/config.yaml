@@ -1,0 +1,78 @@
+# Game ML Project Configuration
+
+# Database Configuration
+database:
+  type: "postgresql"  # or "mongodb"
+  host: "localhost"
+  port: 5432
+  username: "game_user"
+  password: "game_password"
+  database: "game_analytics"
+  mongodb_uri: "mongodb://localhost:27017/game_analytics"
+
+# Data Configuration
+data:
+  raw_data_path: "data/raw/player_data.csv"
+  processed_data_path: "data/processed/"
+  test_size: 0.2
+  random_state: 42
+
+# Feature Engineering
+features:
+  scaling_method: "standardscaler"  # or "minmaxscaler"
+  handle_missing: "mean"  # or "median", "drop"
+  correlation_threshold: 0.95
+
+# Model Configuration
+models:
+  churn_model:
+    type: "xgboost"  # or "logistic_regression", "random_forest"
+    hyperparameters:
+      n_estimators: 100
+      max_depth: 7
+      learning_rate: 0.1
+      random_state: 42
+    
+  recommendation_model:
+    type: "collaborative_filtering"
+    n_recommendations: 5
+    similarity_metric: "cosine"
+  
+  fraud_model:
+    type: "isolation_forest"
+    contamination: 0.05
+    random_state: 42
+
+# Training Configuration
+training:
+  cross_validation_folds: 5
+  hyperparameter_tuning: true
+  test_size: 0.2
+  validation_size: 0.1
+
+# MLflow Configuration
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "game-ml-experiments"
+  backend_store_uri: "sqlite:///mlruns/mlflow.db"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  reload: false
+  workers: 4
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  log_file: "logs/game_ml.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Monitoring
+monitoring:
+  enable_drift_detection: true
+  drift_threshold: 0.1
+  log_predictions: true
+  prediction_log_file: "logs/predictions.log"
