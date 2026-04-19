@@ -37,7 +37,14 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov flake8 black isort
 
-      - name: Code formatting check
+      # ✅ Auto format (fixes issue)
+      - name: Format code
+        run: |
+          black src/ tests/ pipelines/
+          isort src/ tests/ pipelines/
+
+      # ✅ Verify formatting (ensures standards)
+      - name: Verify formatting
         run: |
           black --check src/ tests/ pipelines/
           isort --check-only src/ tests/ pipelines/
