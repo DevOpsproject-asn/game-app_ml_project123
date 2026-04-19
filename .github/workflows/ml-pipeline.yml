@@ -38,11 +38,13 @@ jobs:
           pip install pytest pytest-cov flake8 black isort
 
       # ✅ Auto format (fixes issue)
-      - name: Format code
+      - name: Commit formatted code
         run: |
-          black src/ tests/ pipelines/
-          isort src/ tests/ pipelines/
-
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git diff --quiet || git commit -m "auto-format code [skip ci]"
+          git push
       # ✅ Verify formatting (ensures standards)
       - name: Verify formatting
         run: |
